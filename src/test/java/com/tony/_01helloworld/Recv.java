@@ -35,6 +35,7 @@ public class Recv {
 			System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
 			QueueingConsumer consumer = new QueueingConsumer(channel);
+			
 			channel.basicConsume(QUEUE_NAME, true, consumer);
 
 			while (true) {

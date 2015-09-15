@@ -22,6 +22,8 @@ public class Recv2 {
 
 		QueueingConsumer consumer = new QueueingConsumer(channel);
 		channel.basicConsume(QUEUE_NAME, true, consumer);
+		
+		channel.basicQos(1);
 
 		while (true) {
 			/**
