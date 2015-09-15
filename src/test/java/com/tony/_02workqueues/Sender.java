@@ -4,42 +4,39 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+/**
+ *@Description:对消息进行Round-robin dispatching
+ *@Author:tony
+ *@Since:2015年9月15日
+ */
 public class Sender {
 	private final static String QUEUE_NAME = "hello";
 
 	public static void main(String[] argv) throws Exception {
 		
-//		System.out.println(argv.length);
 		ConnectionFactory factory = new ConnectionFactory();
-		//RabbitMQ Server所在主机
-		factory.setHost("localhost");
+		factory.setHost("192.168.73.128");
+		factory.setUsername("tony");
+		factory.setPassword("123");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-		
-		/**
-		 * 第1个参数:队列名称，只有当不存在时才会创建;
-		 * 第2个:是否创建持久队列(Server重启，队列依然存在)
-		 * 第3个:是否创建被该连接独自占有的队列
-		 * 第4个:当Server发现该队列不再被使用时，是否自动删除
-		 * 第5个:队列初始化属性
-		 */
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-		
-		String message = getMessage(argv);
-		
+		String message = getMessage();
 		//消息内容是byte数组
 		channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
 		System.out.println(" [x] Sent '" + message + "'");
-		
 		channel.close();
 		connection.close();
 	}
 
-	private static String getMessage(String[] argv) {
-		if(argv.length<1){
-			return "Hello world!";
-		}
-		return argv[0];
+	/**
+	 * @Description:.的数目代表Task的难度，每个.耗时一秒
+	 * @Author:tony
+	 * @Since:2015年9月15日
+	 * @return
+	 */
+	private static String getMessage() {
+		return "task.";
 	}
 
 }

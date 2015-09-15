@@ -11,7 +11,9 @@ public class Recv2 {
 	public static void main(String[] argv) throws Exception {
 
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("localhost");
+		factory.setHost("192.168.73.128");
+		factory.setUsername("tony");
+		factory.setPassword("123");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 
@@ -29,7 +31,7 @@ public class Recv2 {
 			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 			String message = new String(delivery.getBody(), "UTF-8");
 			doWorkMessage(message);
-			System.out.println(" [x] Received '" + message + "'");
+			System.out.println(" Recv2:[x] Received '" + message + "'");
 		}
 	}
 
