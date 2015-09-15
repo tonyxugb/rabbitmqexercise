@@ -9,6 +9,11 @@ import com.rabbitmq.client.ConsumerCancelledException;
 import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.ShutdownSignalException;
 
+/**
+ *@Description:简单接收示例
+ *@Author:tony
+ *@Since:2015年9月15日
+ */
 public class Recv {
 
 	private final static String QUEUE_NAME = "hello";
