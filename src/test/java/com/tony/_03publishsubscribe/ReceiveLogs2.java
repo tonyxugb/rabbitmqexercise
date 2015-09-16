@@ -11,7 +11,7 @@ import com.rabbitmq.client.QueueingConsumer;
  *@Author:tony
  *@Since:2015年7月13日
  */
-public class ReceiveLogs {
+public class ReceiveLogs2 {
 	 private static final String EXCHANGE_NAME = "logs";
 
 	    public static void main(String[] argv) throws Exception {
@@ -36,7 +36,7 @@ public class ReceiveLogs {
 	        String queueName = channel.queueDeclare().getQueue();
 	        channel.queueBind(queueName, EXCHANGE_NAME, "");
 
-	        System.out.println("Receiver1: [*] Waiting for messages. To exit press CTRL+C");
+	        System.out.println("Receiver2: [*] Waiting for messages. To exit press CTRL+C");
 
 	        QueueingConsumer consumer = new QueueingConsumer(channel);
 	        channel.basicConsume(queueName, true, consumer);
@@ -45,7 +45,7 @@ public class ReceiveLogs {
 	            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 	            String message = new String(delivery.getBody());
 
-	            System.out.println("Receiver1: [x] Received '" + message + "'");
+	            System.out.println("Receiver2: [x] Received '" + message + "'");
 	        }
 	    }
 
