@@ -49,9 +49,8 @@ public class Send {
 			
 			/**
 			 * 发布消息
-			 * exchange为空:？
-			 * routingKey:？
-			 * BasicProperties:?
+			 * exchange为空字符串，表示使用默认的exchange，默认的exhange类型是direct，
+			 * direct类型的exchange做法是把消息传递给(name值为routingKey值)的队列，所以这里就是hello队列；
 			 * body:消息内容byte数组
 			 */
 			channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
