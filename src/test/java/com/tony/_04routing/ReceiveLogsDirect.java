@@ -5,6 +5,13 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.QueueingConsumer;
 
+/**
+ *@Description:每运行一次该程序，就会新建一个queue、一个queue和exchange之间的binding，
+ *binding的routing key可以通过Run Configrations > arguments设置，
+ *这里使用 info、warning、error代表严重等级
+ *@Author:tony
+ *@Since:2015年9月16日
+ */
 public class ReceiveLogsDirect {
 	private static final String EXCHANGE_NAME = "direct_logs";
 
@@ -12,7 +19,9 @@ public class ReceiveLogsDirect {
 			java.lang.InterruptedException {
 
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("localhost");
+		factory.setHost("192.168.73.128");
+		factory.setUsername("tony");
+		factory.setPassword("123");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 
@@ -20,12 +29,14 @@ public class ReceiveLogsDirect {
 		String queueName = channel.queueDeclare().getQueue();
 
 		if (argv.length < 1) {
-			System.err
-					.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
+			System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
 			System.exit(1);
 		}
 
 		for (String severity : argv) {
+			/**
+			 * exchange和queue之间可以有多个binding
+			 */
 			channel.queueBind(queueName, EXCHANGE_NAME, severity);
 		}
 
@@ -39,8 +50,7 @@ public class ReceiveLogsDirect {
 			String message = new String(delivery.getBody());
 			String routingKey = delivery.getEnvelope().getRoutingKey();
 
-			System.out.println(" [x] Received '" + routingKey + "':'" + message
-					+ "'");
+			System.out.println("[x] Received '" + routingKey + "':'" + message+ "'");
 		}
 	}
 
