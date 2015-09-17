@@ -15,7 +15,6 @@ public class EmitLogTopic {
 		factory.setPassword("123");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-
 		channel.exchangeDeclare(EXCHANGE_NAME, "topic");
 
 		String routingKey = getRouting(argv);
