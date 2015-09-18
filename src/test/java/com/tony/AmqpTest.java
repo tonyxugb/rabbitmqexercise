@@ -1,5 +1,6 @@
 package com.tony;
 
+import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,11 +22,17 @@ public class AmqpTest {
 //			Thread.sleep(3000);
 //		}
 //		ctx.destroy();
-		int i =0;
-		while(true){
-			template.convertAndSend((i++) +":Hello, world!");
-			
-			Thread.sleep(RansomUtil.getRansomNumber());
-		}
+//		int i =0;
+//		while(true){
+//			template.convertAndSend((i++) +":Hello, world!");
+//			
+//			Thread.sleep(RansomUtil.getRansomNumber());
+//		}
+		
+//		template.convertAndSend("foo.tony", "Hello");
+		
+//		MessageListener
+//		MessageListener listener = new MessageListenerAdapter();
+		
 	}
 }
